@@ -1,8 +1,6 @@
 
 function footerBanner() {
-    var top = this.scrollY;
     var fixedBanner = document.getElementById("fixed-banner");
-    var bannerClose = document.querySelector(".banner-close");
 
     function scrollBanner() {       
         fixedBanner.style.animation = "slidebanner .5s ease-in-out";
@@ -27,13 +25,13 @@ function footerBanner() {
             setTimeout(function(){
                 scrollBanner();
                 footerBanner().closeBanner();
-            }, 10000);
+            }, 5000);
         },
         closeBanner: function() {
             setTimeout(function() {
                 exitBanner();
                 footerBanner().showBanner();
-            }, 10000);            
+            }, 20000);            
         }
     }
 }
