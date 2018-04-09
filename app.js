@@ -4,16 +4,10 @@ function footerBanner() {
     var fixedBanner = document.getElementById("fixed-banner");
     var bannerClose = document.querySelector(".banner-close");
 
-    function scrollBanner() {
-        console.log(sessionStorage.position);
-        if (sessionStorage.position === undefined) {
-            sessionStorage.position = 1;
-        }
-        if (top > 400 && parseInt(sessionStorage.position) === 1) {
-            fixedBanner.style.animation = "slidebanner .5s ease-in-out";
-            fixedBanner.style.webkitAnimation = "slidebanner .5s ease-in-out";
-            fixedBanner.style.bottom = "1px";					
-             } 
+    function scrollBanner() {       
+        fixedBanner.style.animation = "slidebanner .5s ease-in-out";
+        fixedBanner.style.webkitAnimation = "slidebanner .5s ease-in-out";
+        fixedBanner.style.bottom = "1px";					
     }
 
     function exitBanner() {
@@ -22,26 +16,33 @@ function footerBanner() {
         fixedBanner.style.bottom = "-200px";  				
     }
 
-    return {				
+    return {
+        loadBanner: function() {
+            setTimeout(function() {
+                scrollBanner();
+                footerBanner().closeBanner();
+            }, 3000);
+        },				
         showBanner: function() {
-            scrollBanner();
+            setTimeout(function(){
+                scrollBanner();
+                footerBanner().closeBanner();
+            }, 10000);
         },
         closeBanner: function() {
-            sessionStorage.position = 2;					
-            exitBanner();
+            setTimeout(function() {
+                exitBanner();
+                footerBanner().showBanner();
+            }, 10000);            
         }
     }
 }
-
                 
-window.addEventListener("scroll", function() {
-    try {	
-        var scroll = footerBanner();								
-        scroll.showBanner();
+onload = function() {   	
+    try {	   
+        var load = footerBanner();
+        load.loadBanner();      
     } catch(e) {
         console.log(e.stack);
     }				
-});   
-document.querySelector(".banner-close").addEventListener("click", function() {
-    footerBanner().closeBanner();
-});				
+};			
