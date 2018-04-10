@@ -35,11 +35,12 @@ function footerBanner() {
         }
     }
 }
+
                 
 onload = function() {   	
     try {	   
         var load = footerBanner();
-        load.loadBanner();      
+        load.loadBanner(); 
     } catch(e) {
         console.log(e.stack);
     }				
